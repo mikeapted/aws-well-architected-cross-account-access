@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Metadata: 
+  License: Apache-2.0
+Description: 'AWS CloudFormation Template well-architected-cross-account: This template
+  installs an IAM role and trust policy to allow cross account access to the AWS Console 
+  Well Architected Tool. When launching the template you can choose the external account
+  ID and the level of access they should have. There are no billable resources created 
+  from this template.'
+Parameters:
+  RoleName:
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: Must begin with a letter and contain only alphanumeric characters.
+    Default: WellArchitectedCrossAccountAccess
+    Description: The name for your cross account access role
+    MaxLength: '64'
+    MinLength: '10'
+    Type: String
+  AccountID:
+    AllowedPattern: '[0-9]*'
+    ConstraintDescription: must be a valid AWS account ID (12 digits)
+    Description: The external account ID you are providing access for
+    MaxLength: '12'
+    MinLength: '12'
+    Type: String
+  AccessType: 
+    Type: String
+    Default: ReadOnly
+    AllowedValues: 
+      - ReadOnly
+      - FullAccess
+    Description: Enter ReadOnly or FullAccess. Default is ReadOnly.
+Conditions: 
+  FullAccess: !Equals [ !Ref AccessType, 'FullAccess' ]
+Resources:
+  CrossAccountRole:
+    Type: AWS::IAM::Role
+    Properties: 
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Effect: "Allow"
+            Principal: 
+              AWS: 
+                - !Join
+                  - ''
+                  - - 'arn:aws:iam::'
+                    - !Ref AccountID
+                    - ':root'
+            Action: 
+              - "sts:AssumeRole"
+      Path: "/"
+      ManagedPolicyArns:
+        - !If [FullAccess, 'arn:aws:iam::aws:policy/WellArchitectedConsoleFullAccess', 'arn:aws:iam::aws:policy/WellArchitectedConsoleReadOnlyAccess']
+      MaxSessionDuration: 3600
+      RoleName: !Ref RoleName
+Outputs:
+  ConsoleURL:
+    Description: Information about the value
+    Value: !Join
+      - ''
+      - - ' https://signin.aws.amazon.com/switchrole?roleName='
+        - !Ref RoleName
+        - '&account='
+        - !Ref "AWS::AccountId"

@@ -7,13 +7,13 @@ __<a href="https://us-west-2.console.aws.amazon.com/cloudformation/home?region=u
 
 You have to choose:
 
-* the role name
-* the accountID that you want to authorize to assume that role
-* the access type: ReadOnly or FullAccess
+* __the role name__
+* __the accountID__ that you want to authorize to assume that role
+* __the access type__: ReadOnly or FullAccess
 
-_You need to be logged in the account where want the Well Architected Review to be created in you browser and have appropriate permission._
+_You need to be logged in the account where you want the Well Architected Review to be created within you browser._
 
-If you like to execute the Cloudformation script within another region than Oregon use:
+_If you like to execute the CloudFormation script within another region than Oregon use:_
 
 * <a href="https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/review?templateURL=https://well-architected-review-role.s3.amazonaws.com/well-architected-cross-account.yaml&stackName=WellArchitectedReviewRole">Deploy the IAM Role in EU (Ireland)</a>
 * <a href="https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/create/review?templateURL=https://well-architected-review-role.s3.amazonaws.com/well-architected-cross-account.yaml&stackName=WellArchitectedReviewRole">Deploy the IAM Role in US East (Ohio)</a>

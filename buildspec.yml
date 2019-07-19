@@ -1,8 +1,8 @@
 version: 0.2
 phases:
-  build:
-    commands:
-      - echo Nothing to do here...
+  install:
+    runtime-versions:
+      python: 3.7
 artifacts:
   files:
     - well-architected-cross-account.yaml

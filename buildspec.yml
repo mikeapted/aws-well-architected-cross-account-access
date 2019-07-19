@@ -3,6 +3,9 @@ phases:
   install:
     runtime-versions:
       python: 3.7
+  build:
+    commands:
+      - ls -l 
 artifacts:
   files:
     - well-architected-cross-account.yaml

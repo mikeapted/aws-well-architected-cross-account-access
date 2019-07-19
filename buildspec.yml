@@ -1,5 +1,8 @@
 version: 0.2
 phases:
+  build:
+    commands:
+      - echo Nothing to do here...
 artifacts:
   files:
     - well-architected-cross-account.yaml

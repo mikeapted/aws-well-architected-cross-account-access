@@ -22,7 +22,7 @@ Parameters:
     MaxLength: '12'
     MinLength: '12'
     Type: String
-  AccessType: 
+  AccessType:
     Type: String
     Default: ReadOnly
     AllowedValues: 
